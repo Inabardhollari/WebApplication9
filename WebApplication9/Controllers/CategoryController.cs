@@ -9,15 +9,18 @@ namespace WebApplication9.Controllers
     public class CategoryController : ControllerBase
     {
         private readonly ICategory cat;
-        public CategoryController(ICategory _Cat)
+        private readonly IInventory inv;
+        public CategoryController(ICategory _Cat, IInventory _inv)
         {
             cat = _Cat;
+            inv = _inv;
         }
 
         [HttpPost("addCategory")]
         public ActionResult<CategoryModel> AddCategory([FromBody] CategoryModel model)
         {
-            cat.addC(model);
+
+            cat.addC(model);  
             return NoContent();
 
         }

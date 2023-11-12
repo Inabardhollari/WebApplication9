@@ -30,7 +30,7 @@ namespace WebApplication9.Controllers
         [HttpPost]
         public ActionResult<InventoryModel> PostItem(InventoryModel model)
         {
-            if (cat.getCategory(model.CategoryId) == null)
+            if (cat.getCategory((int)model.CategoryId) == null)
             {
                 ModelState.AddModelError("CategoryId", "Invalid CategoryId.");
                 return BadRequest(ModelState);

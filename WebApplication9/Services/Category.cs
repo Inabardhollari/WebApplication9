@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Infrastructure;
 using WebApplication9.Models;
 
 namespace WebApplication9.Services
@@ -7,15 +8,16 @@ namespace WebApplication9.Services
     public class Category : ICategory
     {
         private readonly AppDbContext db;
+      
         public Category(AppDbContext _db)
         {
-            db= _db;
+            db = _db;
         }
 
         public void addC(CategoryModel model)
         {
-            db.category.Add(model);
-            db.SaveChanges();
+             db.category.Add(model);
+             db.SaveChanges();
         }
         
         public List<CategoryModel> getCategories()

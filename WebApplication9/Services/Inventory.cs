@@ -12,8 +12,11 @@ namespace WebApplication9.Services
         }
         public void addItems(InventoryModel inv)
         {
-            db.Inventory.Add(inv);
-            db.SaveChanges();
+            if (!db.Inventory.Any(x => x.Id == inv.Id))
+            {
+                db.Inventory.Add(inv);
+                db.SaveChanges();
+            }
         }
 
         public bool deleteItems(int id)
@@ -28,19 +31,19 @@ namespace WebApplication9.Services
         }
         public InventoryModel getItemsById(int id)
         {
-            return db.Inventory.Any(x => x.Id == id) ? db.Inventory.Include(item => item.Category).FirstOrDefault(item => item.Id == id) :null;
-      
-           // return db.Inventory.Any(x => x.Id == id) ? db.Inventory.FirstOrDefault(x => x.Id == id) : null;
+            return db.Inventory.Any(x => x.Id == id) ? db.Inventory.Include(item => item.Category).FirstOrDefault(item => item.Id == id) : null;
+
+            // return db.Inventory.Any(x => x.Id == id) ? db.Inventory.FirstOrDefault(x => x.Id == id) : null;
         }
         public List<InventoryModel> getItems()
         {
             return db.Inventory.Any() ? db.Inventory.Include(item => item.Category).ToList() : null;
-           // return db.Inventory.Any() ? db.Inventory.ToList() : null;
+            // return db.Inventory.Any() ? db.Inventory.ToList() : null;
         }
         public bool updateItems(int id, InventoryModel model)
         {
             var objModel = db.Inventory.FirstOrDefault(x => x.Id == id);
-            if (objModel!=null)
+            if (objModel != null)
             {
                 objModel.Name = model.Name;
                 objModel.CategoryId = model.CategoryId;
